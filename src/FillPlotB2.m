@@ -34,7 +34,7 @@ function h = FillPlotB2(BETA, c)
 %
 % GITHUB
 % This software is hosted on GITHUB. It is accessible via
-% XXXXXXXXXXXXXXXXXXXX
+% https://github.com/EMMA-Group/LoewnerMajorant
 %
 % CHANGELOG
 % Aug 09, 2018      initial creation
@@ -54,5 +54,7 @@ fill(   [BETA(1,:), BETA(1,end), BETA(1,1)], ...
         [BETA(2,:), BETA(2,1),   BETA(2,1)], ...
         c, 'EdgeColor', 'none' );
 plot( BETA(1,:), BETA(2,:), 'LineWidth', 3, 'Color', 'black' );    
-
+xlabel('\beta_1');
+ylabel('\beta_2');
+title('admissible domain B2');
 end

@@ -27,7 +27,7 @@ clc;
 %
 % GITHUB
 % This software is hosted on GITHUB. It is accessible via
-% XXXXXXXXXXXXXXXXXXXX
+% https://github.com/EMMA-Group/LoewnerMajorant
 %
 % CHANGELOG
 % Aug 08, 2018      initial creation

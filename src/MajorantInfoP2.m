@@ -2,6 +2,13 @@ function MajorantInfoP2( Lambda, p, idx_case )
 %% MAJORANTINFOP2 displays some information on the Loewener majorant
 % determined by SHARPLOEWNERMAJORANTP2.
 %
+% INPUTS     (remark: all inputs are outputs of SHARPLOEWNERMAJORANTP2)
+% Lambda     vector containing the eigenvalues of A (sorted)
+% p          vector p0 in the A-eigensystem
+% idx_case   either 1 or two
+%
+%
+%
 % See also SHARPLOEWNERMAJORANTP2, BETADOMAINP2, PLOTCRITICALB2
 %
 %
@@ -28,7 +35,7 @@ function MajorantInfoP2( Lambda, p, idx_case )
 %
 % GITHUB
 % This software is hosted on GITHUB. It is accessible via
-% XXXXXXXXXXXXXXXXXXXX
+% https://github.com/EMMA-Group/LoewnerMajorant
 %
 % CHANGELOG
 % Aug 08, 2018      initial creation

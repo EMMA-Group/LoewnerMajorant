@@ -43,7 +43,7 @@ function [ U, Lambda, p, mu_p, mu_hat, idx_case ] = SharpLoewnerMajorantP2( A, p
 %
 % GITHUB
 % This software is hosted on GITHUB. It is accessible via
-% XXXXXXXXXXXXXXXXXXXX
+% https://github.com/EMMA-Group/LoewnerMajorant
 %
 % CHANGELOG
 % Aug 08, 2018      initial creation

@@ -52,8 +52,8 @@ p0  = p0 / norm(p0);
 % dlmwrite('../data/paper_b4_vector_p0.dat',p0,'precision','%16.8e','delimiter',' ');
 
 %% use data from the article:
-%  A  = dlmread('../data/paper_b4_matrix_A.dat');
-%  p0 = dlmread('../data/paper_b4_vector_p0.dat');
+ A  = dlmread('../data/paper_b4_matrix_A.dat');
+ p0 = dlmread('../data/paper_b4_vector_p0.dat');
 
 %% split the matrix
 A2  =   A( 1:n, 1:n );
@@ -151,27 +151,26 @@ Fmin0       = Fmin;
 options = optimoptions('fmincon');
 
 % Set OptimalityTolerance to 1e-3
-options = optimoptions(options, 'OptimalityTolerance', 1e-10); 
+options = optimoptions(options, 'OptimalityTolerance', 1e-12); 
 
 % Set the Display option to 'iter', the StepTolerance
 % and the constraint tolerance (!!! important !!!)
 options.Display = 'iter';
-options.StepTolerance = 1e-10;
-options.ConstraintTolerance = 1e-10;
+options.StepTolerance = 1e-12;
+options.ConstraintTolerance = 1e-12;
 
 
 %% define constraints (here: pass needed parameters to the function)
+C4      = @(x) [ diag(x(1)-Lambda)+x(2)*p*p', x(4)*p-l; x(4)*p'-l', x(3)-a0 ];
 cond    = @(x) conditions( x,Lambda, p, l, a0);
 phi     = @(x) Phi_Frobenius(x, n);
-bmin    = fmincon( phi, bmin0, [], [], [], [], [mu_hat;-inf;-inf;-inf], [], cond, options );
+bmin    = fmincon( phi, bmin0 + 0.05*[rand(2,1);zeros(2,1)], [], [], [], [], [mu_hat;-inf;-inf;-inf], [], cond, options );
 Fmin    = phi(bmin);
 fprintf('\n\n**********************************************************************************************\n');
 fprintf('* optimal value for double sharp Loewner Majorants   %16.8e\n', Fmin0);
 fprintf('*          beta = [ %12.6e; %12.6e; %12.6e; %12.6e ];\n', ...
     bmin0(1), bmin0(2), bmin0(3), bmin0(4) );
-B2      = diag(bmin0(1)-Lambda)+bmin0(2)*p*p';
-B4      = [ B2, bmin0(4)*p-l; bmin0(4)*p'-l', bmin0(3)-a0];
-e = sort( eig(B4), 'ascend');
+e = sort( eig(C4(bmin0)), 'ascend');
 fprintf('* two smallest eigenvalues of the difference matrix: %12.5e, %12.5e\n', e(1), e(2));
 fprintf('**********************************************************************************************\n\n\n');
 fprintf('**********************************************************************************************\n');
@@ -179,13 +178,11 @@ fprintf('* optimal value for all Loewner Majorants            %16.8e\n', Fmin);
 fprintf('*          beta = [ %12.6e; %12.6e; %12.6e; %12.6e ];\n', ...
     bmin(1), bmin(2), bmin(3), bmin(4) );
 
-B2      = diag(bmin(1)-Lambda)+bmin(2)*p*p';
-B4      = [ B2, bmin(4)*p-l; bmin(4)*p'-l', bmin(3)-a0];
-e = sort( eig(B4), 'ascend');
+e = sort( eig(C4(bmin)), 'ascend');
 fprintf('* two smallest eigenvalues of the difference matrix: %12.5e, %12.5e\n', e(1), e(2));
 fprintf('**********************************************************************************************\n\n\n');
 fprintf('**********************************************************************************************\n');
-fprintf('* change minimum over double sharp majorants         %16.8e (relative: %10.5f)\n', Fmin-Fmin0, Fmin/Fmin0-1);
+fprintf('* change of minimum over double sharp majorants         %16.8e (relative: %10.5f)\n', Fmin-Fmin0, Fmin/Fmin0-1);
 dbmin=bmin-bmin0;
 fprintf('* change of beta  [ %12.6e, %12.6e, %12.6e, %12.6e ]\n', dbmin(1), dbmin(2), dbmin(3), dbmin(4) );
 fprintf('**********************************************************************************************\n');
@@ -201,7 +198,7 @@ function [c, ceq]=conditions(x, Lambda, p, l, a0)
 % beta2 >= beta2_c(beta1)
 % beta3 >= a0 + (beta3*p-l)' * (B2(beta1,beta2)-Lambda)^-1 * (beta3*p-l)
 % and check if beta4 is admissible in the case of critical beta1/2-pairs
-tol = 1e-10;
+tol = 1e-14;
 ceq = [];
 
 n   = p./(x(1)-Lambda);
@@ -216,14 +213,14 @@ if( c(1)>-tol )
     d       = abs(b4crit-x(4));
     if( d > tol )
         %% beta4 is inadmissible --> penalty function
-        fac  = 1e6;
+        fac  = 1e12;
         %% Attention: fac and 1/tol should not differ by more than
         % sqrt(accuracy_fmincon)
         c(2) = d * fac;
         return;
     else
         %% check if beta3 is ok
-        zi  = ( diag(x(1)-Lambda) + x(2)*p*p') \ z;
+        zi  = pinv( diag(x(1)-Lambda) + x(2)*p*p') * z;
         c(2)= a0 + z'*zi - x(3);
         return;
     end

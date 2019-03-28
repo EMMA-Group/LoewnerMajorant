@@ -10,6 +10,9 @@ function h = PlotCriticalB2( beta1vec, beta2vec, Lambda, p, idx_case, c )
 % idx_case      case determined by SharpLoewnerMajorantP2
 % c             [ OPTIONAL ] fill color (default:  light blue)
 %
+% OUTPUT
+% h             handle to the generated figure
+%
 % See also SHARPLOEWNERMAJORANTP2, BETADOMAINP2.
 %
 %
@@ -36,7 +39,7 @@ function h = PlotCriticalB2( beta1vec, beta2vec, Lambda, p, idx_case, c )
 %
 % GITHUB
 % This software is hosted on GITHUB. It is accessible via
-% XXXXXXXXXXXXXXXXXXXX
+% https://github.com/EMMA-Group/LoewnerMajorant
 %
 % CHANGELOG
 % Aug 08, 2018      initial creation

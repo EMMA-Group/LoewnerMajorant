@@ -1,8 +1,10 @@
-function [ beta1vec, beta2vec ] = BetaDomainP2( b1_min, b1_max, Lambda, p, idx_case, n, b2cutoff )
+function [ beta1vec, beta2vec ] = BetaDomainP2( b1_min, b1_max, Lambda, p, idx_case, n_points, b2cutoff )
 %% BETADOMAINP2 computes the boundary of the critical beta1/2 domain
 % for given outputs of the (previously called) SHARPLOEWNERMAJORANTP2.
 % The outputs can be plotted using PLOTCRITICALB2 or they can be processed
 % in discrete optimization quite easily.
+%
+% For subsequent processing for set majorization use INTERSECTMAJORANTS.
 %
 % INPUTS
 % b1_min        upper bound for beta_1 ([] --> mu_hat )
@@ -11,14 +13,14 @@ function [ beta1vec, beta2vec ] = BetaDomainP2( b1_min, b1_max, Lambda, p, idx_c
 %               of the symmetric matrix A under consideration
 % p             normalized d-vector in the coordinate system of A
 % idx_case      case to be considered (1 --> p = e_i , 2 --> p inclined)
-% n             [OPTIONAL] number of outputs (default: 100)
+% n_points      [OPTIONAL] number of outputs (default: 100)
 % b2cutoff      [OPTIONAL] cutoff for beta_2 (default: 4 * mu_hat - mu_p)
 %
 % OUTPUTS
 % beta1vec      row-vector of length n containing beta_1 values
 % beta2vec      row-vector of length n containing beta_2 values
 %
-% See also SHARPLOEWNERMAJORANTP2, PLOTCRITICALB2.
+% See also SHARPLOEWNERMAJORANTP2, PLOTCRITICALB2, INTERSECTMAJORANTS.
 %
 % related to the article
 % Sharp Loewner majorants for a set of symmetric matrices
@@ -43,7 +45,7 @@ function [ beta1vec, beta2vec ] = BetaDomainP2( b1_min, b1_max, Lambda, p, idx_c
 %
 % GITHUB
 % This software is hosted on GITHUB. It is accessible via
-% XXXXXXXXXXXXXXXXXXXX
+% https://github.com/EMMA-Group/LoewnerMajorant
 %
 % CHANGELOG
 % Aug 08, 2018      initial creation
@@ -71,9 +73,9 @@ if( isempty(b1_max) )
 end
 
 %% test for plausibility of arguments
-if( ~exist('n', 'var') )
-    n = 100;
-    fprintf('%% using default number of steps n=%i\n', n);
+if( ~exist('n_points', 'var') )
+    n_points = 100;
+    fprintf('%% using default number of steps n=%i\n', n_points);
 end
 
 if( ~exist('b2cutoff', 'var') )
@@ -84,7 +86,7 @@ if( mu_hat - b1_min > tol*abs(mu_hat))
     warning('WARNING: b1_min is too small (i.e. smaller than mu_hat)');
 end
 
-beta1vec = linspace(b1_min, b1_max, n);
+beta1vec = linspace(b1_min, b1_max, n_points);
 
 %% CASE 1: p is coaxial to some eigenvectors of A
 if( idx_case == 1 )
