@@ -46,5 +46,5 @@ pause;
 
 demo5
 disp('********************************************************')
-disp('CLICK IN THE COMMAND WINDOW AND PRESS A KEY TO CONTINUE.')
+disp('END OF MAIN DEMONSTRATION FILE.')
 disp('********************************************************')
