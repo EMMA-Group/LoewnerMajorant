@@ -1,7 +1,7 @@
 # Löwner majorants
 By Mauricio Fernández and Felix Fritzen
 
-[Research group website](https://www.mechbau.uni-stuttgart.de/EMMA/index.html)
+[Research group website](https://www.mechbau.uni-stuttgart.de/EMMA/team/index.en.html)
 
 ## Description
 
