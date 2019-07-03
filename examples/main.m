@@ -45,3 +45,6 @@ pause;
 %% Demo 5: example for positive semidefinite programming over B4 for a matrix set
 
 demo5
+disp('********************************************************')
+disp('END OF MAIN DEMONSTRATION FILE.')
+disp('********************************************************')
