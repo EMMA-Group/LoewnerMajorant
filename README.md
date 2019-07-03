@@ -12,4 +12,6 @@ The current repository contains supplementary material for the manuscript
 by Mauricio Fernández and Felix Fritzen. The programs have been written in Matlab. The content is organized as follows:
 
 * source: Matlab functions
-* examples: demonstration examples as presented in [1]
+* examples: demonstration examples as presented in [1].
+
+The user may run examples/main.m in order to reproduce all examples presented [1].
