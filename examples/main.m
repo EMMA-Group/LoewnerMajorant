@@ -4,6 +4,13 @@
 % "Construction of a class of sharp Löwner majorants for a set of symmetric matrices"
 % by
 % Mauricio Fernández and Felix Fritzen
+%
+% Research group website: 
+% https://www.mechbau.uni-stuttgart.de/EMMA/team/index.en.html
+%
+% Contact: 
+% mauricio.fernandez.lb@gmail.com
+% fritzen@mechbau.uni-stuttgart.de
 
 clc;
 clear all;
@@ -46,5 +53,5 @@ pause;
 
 demo5
 disp('********************************************************')
-disp('END OF MAIN DEMONSTRATION FILE')
+disp('END OF MAIN DEMONSTRATION FILE.')
 disp('********************************************************')
