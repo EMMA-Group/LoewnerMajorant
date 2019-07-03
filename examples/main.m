@@ -46,5 +46,5 @@ pause;
 
 demo5
 disp('********************************************************')
-disp('END OF MAIN DEMONSTRATION FILE.')
+disp('END OF MAIN DEMONSTRATION FILE')
 disp('********************************************************')
