@@ -1,4 +1,4 @@
-function B2Plot(A,p0,info,nc,b1range,b2range,n_b1,ls)
+function B2Plot(A,p0,info,nc,b1range,b2range,n_b1,ls,col)
 % B2Plot(A,p0,info,nc,b1range,b2range,n_b1,ls)
 % plots the boundary of the B2 set 
 %
@@ -11,6 +11,7 @@ function B2Plot(A,p0,info,nc,b1range,b2range,n_b1,ls)
 % b2range     [optional] set plot range [b2min,b2max] for b2
 % n_b1        [optional] number of b1-points
 % ls          [optional] line style for plotting
+% col         [optional] color
 % 
 % Output:
 % Plot of B2 set.
@@ -30,6 +31,10 @@ if ~exist('ls','var')
     % Default: standard line plot
     ls = '-';
 end
+if ~exist('col','var')
+    % Default: standard plot color string
+    col = 'standard';
+end
 
 if ~iscell(A)
     % Preparations
@@ -46,7 +51,7 @@ if ~iscell(A)
         b1range = [b1min,b1max];
     end
     if ~exist('n_b1','var')
-        % Default: discretize in at least 100 points
+        % Default: discretize in at least 200 points
         n_b1 = 200;
     end
 
@@ -60,7 +65,11 @@ if ~iscell(A)
     end
 
     % Plot
-    plot(b(:,1),b(:,2),'linewidth',2,'linestyle',ls);
+    if strcmp(col,'standard')
+        plot(b(:,1),b(:,2),'linewidth',2,'linestyle',ls);
+    else
+        plot(b(:,1),b(:,2),'linewidth',2,'linestyle',ls,'color',col);
+    end
 
     % Add necessary conditions, if desired
     if nc == 1

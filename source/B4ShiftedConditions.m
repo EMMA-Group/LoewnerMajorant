@@ -1,7 +1,7 @@
 function [cineq,ceq] = B4ShiftedConditions(b,Lv,l,l0,p)
 
 if ~iscell(Lv)
-    % Null vector n, vecor c and minimum b2 for b1 ~= Lmax
+    % Null vector n, vecor c and minimum b2 for given b1 ~= Lmax and b4
     n = p./(b(1)-Lv);
     c = b(4)*p - l;
     b2m = -1/(n'*p);
@@ -43,6 +43,7 @@ else
 
     % For given b1 compute minimum b2 
     [b2m,im] = max(arrayfun(@(i) -1/sum(p{i}.^2./(b(1)-Lv{i})),1:N));
+    % and corresponding null vector n and vecor c
     n = p{im}./(b(1)-Lv{im});
     c = b(4)*p{im}-l{im};
 
@@ -53,6 +54,7 @@ else
     % Tolerance
     tol = 1e-10;
 
+    % Check if on boundary of B2 or in interior of B2
     if abs(cineq(1)) < tol
         % On boundary of B2 (lemma 4)
         b4c = n'*l/b2m;
