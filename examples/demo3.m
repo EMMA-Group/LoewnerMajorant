@@ -116,3 +116,50 @@ hold off;
 %% Export
 
 print('B2_examples','-dpng','-r600')
+
+%% Example: Graphite - taken from Nadeau and Ferrari (2001)
+
+disp('----------------------------------')
+disp('Example: Graphite - taken from Nadeau and Ferrari (2001)')
+
+% Material stiffness graphite
+A = [[1060,180,15,0,0,0];...
+    [180,1060,15,0,0,0];...
+    [15,15,73/2,0,0,0];...
+    [0,0,0,9,0,0];...
+    [0,0,0,0,9,0];...
+    [0,0,0,0,0,880]];
+% Vector p0 for zeroth-order bound
+p0 = [1,1,1,0,0,0]'/sqrt(3);
+
+% Identify case
+[idx,Lv,p,mu_P,mu_Q,c_Q] = B2Preparations(A,p0,1);
+mu_Q_exact = 880;
+c_Q_exact = -(1387/912330);
+fprintf('Deviation of numeric mu_Q and mu_Q_exact: %.4e\n',mu_Q-mu_Q_exact)
+fprintf('Deviation of numeric c_Q and c_Q_exact: %.4e\n',c_Q-c_Q_exact)
+
+% Exact minimum
+minb1 = mu_Q_exact;
+minb2 = -1/c_Q_exact;
+minphi = 6*minb1 + minb2;
+
+% Plot boundary of B2 and phi = tr(B^0_2) = 6 b1 + b2
+figure;
+colormap((0.4:0.001:1)'*[1,1,1]);
+[b1,b2] = meshgrid(700:10:2000,-200:10:1200);
+phi = 6*b1 + b2;
+contourf(b1,b2,phi,'LineStyle','none');
+daspect([1 1 1]);
+hold on;
+B2Plot(A,p0,0,0,[700,2000],[-200,1200],200,'-','black')
+title('Graphite - $\varphi = \mathrm{tr}(\underline{\underline{B}}^0_2) = 6 \beta_1 + \beta_2$ in $\mathrm{GPa}$','Interpreter','latex');
+scatter(minb1,minb2,'filled','black');
+contour(b1,b2,phi,[minphi,minphi],'linewidth',2,'color','black','linestyle','--');
+colorbar;
+xlabel('$\beta_1$ in GPa','Interpreter','latex');
+ylabel('$\beta_2$ in GPa','Interpreter','latex');
+hold off;
+
+% Export figure
+print('B2_examples_graphite','-dpng','-r600')

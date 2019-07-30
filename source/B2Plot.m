@@ -82,8 +82,8 @@ if ~iscell(A)
     ylim(b2range);
 
     % Labels
-    xlabel('\beta_1');
-    ylabel('\beta_2');
+    xlabel('$\beta_1$','Interpreter','latex');
+    ylabel('$\beta_2$','Interpreter','latex');
 else
     % Preparations for matrix set A
     [idx,Lv,p,mu_P,mu_Q,c_Q] = B2Preparations(A,p0);
@@ -126,8 +126,8 @@ else
     ylim(b2range);
 
     % Labels
-    xlabel('\beta_1');
-    ylabel('\beta_2');
+    xlabel('$\beta_1$','Interpreter','latex');
+    ylabel('$\beta_2$','Interpreter','latex');
     
     hold off;
 end
